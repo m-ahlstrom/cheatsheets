@@ -6,8 +6,16 @@
 4. GIT BRANCHES (branch, checkout, diff, merge)
 5. GIT REMOTE REPOSITORIES (remote, push, pull, fetch)
 6. GIT UNDO CHANGES (reset, restore, revert, cherry-pick, rebase)
-7. GIT SUBMODULES (submodule, subtree)
+7. GIT OPTIMIZATION (submodules, subtrees, commit-graph)
 8. GIT IN PRACTICE (examples from Oh Shit Git, Atlassian, etc.)
+
+## USEFUL RESOURCES
+
+- [Git’s database internals I: packed object store](https://github.blog/2022-08-29-gits-database-internals-i-packed-object-store/)
+- [Git’s database internals II: commit history queries](https://github.blog/2022-08-30-gits-database-internals-ii-commit-history-queries/)
+- [Git’s database internals III: file history queries](https://github.blog/2022-08-31-gits-database-internals-iii-file-history-queries/)
+- [Git’s database internals IV: distributed synchronization](https://github.blog/2022-09-01-gits-database-internals-iv-distributed-synchronization/)
+- [Git’s database internals V: scalability](https://github.blog/2022-09-02-gits-database-internals-v-scalability/)
 
 ## 1. GIT MANEGEMENT
 
@@ -321,6 +329,7 @@ git log --oneline
 ```sh
 git log --decorate
 ```
+
 The --graph option draws an ASCII graph representing the branch structure of the commit history. This is commonly used in conjunction with the --oneline and --decorate commands to make it easier to see which commit belongs to which branch.
 
 ```sh
@@ -480,6 +489,7 @@ Join two or more development histories together. It will create a merged commit.
 ```sh
 git merge
 ```
+
 NOTE: <strong>pull requests are the preferred method for merging on remote repositories.</strong> Push the sub-branch to remote repository as upstream. THEN on GitHub, Compare & Pull Request. Write a comment. Wait for feedback. Finally, Merge pull request. The sub-branch can be deleted.
 
 ```sh
@@ -690,7 +700,17 @@ squash
 
 </details>
 
-## 7. GIT SUBMODULES
+## 7. GIT OPTIMIZATION
+
+<details><summary>Creating a commit-graph.</summary>
+
+This creates a commit-graph in your working repository.
+
+```sh
+git commit-graph write --reachable
+```
+
+</details>
 
 <details><summary>Working with submodules.</summary>
 
