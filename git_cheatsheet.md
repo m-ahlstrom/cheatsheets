@@ -447,37 +447,37 @@ git branch
 Create a new branch. Typical long-term branches are: main, dev. Typical short-term branches are: feature, hotfix, release.
 
 ```sh
-git branch branch-name
+git branch <branch-name>
 ```
 
 Rename the current branch to the new branch-name.
 
 ```sh
-git branch -m branch-name
+git branch -m <branch-name>
 ```
 
 Delete the selected branch.
 
 ```sh
-git branch -d branch-name
+git branch -d <branch-name>
 ```
 
 With reflog, even deleted branches' hash number can be seen. This way, the deleted branches can be recovered.
 
 ```sh
-git branch develop branch-hash
+git branch develop <branch-hash>
 ```
 
 Change between branches in the current repository.
 
 ```sh
-git checkout branch-name
+git checkout <branch-name>
 ```
 
 View the differences between the current branch and another branch (branch-name).
 
 ```sh
-git diff branch-name
+git diff <branch-name>
 ```
 
 </details>
@@ -493,7 +493,7 @@ git merge
 NOTE: <strong>pull requests are the preferred method for merging on remote repositories.</strong> Push the sub-branch to remote repository as upstream. THEN on GitHub, Compare & Pull Request. Write a comment. Wait for feedback. Finally, Merge pull request. The sub-branch can be deleted.
 
 ```sh
-git push -u origin branch-name
+git push -u origin <branch-name>
 ```
 
 Undo the merge that e. g. caused a merge conflict.
@@ -611,13 +611,13 @@ git reset HEAD~1
 git log shows the hash number of each commit. This hash number can be added to be able to reset the project version to a specific stage.
 
 ```sh
-git reset commit-hash
+git reset <commit-hash>
 ```
 
 Reset to a previous version and delete all local changes.
 
 ```sh
-git reset --hard commit-hash
+git reset --hard <commit-hash>
 ```
 
 </details>
@@ -627,31 +627,31 @@ git reset --hard commit-hash
 Restore a deleted file.
 
 ```sh
-git restore filename
+git restore <filename>
 ```
 
 Approve or discard chunks of changes in a file.
 
 ```sh
-git restore -p filename
+git restore -p <filename>
 ```
 
 Restore a specific version of a specific file.
 
 ```sh
-git restore --source commit-hash filename
+git restore --source <commit-hash> <filename>
 ```
 
 Revert the changes of the specified commit. A revert is an operation that takes a specified commit and creates a new commit which inverses the specified commit. Reverting undoes a commit by creating a new commit. This is a safe way to undo changes, as it has no chance of re-writing the commit history.
 
 ```sh
-git revert commit-hash
+git revert <commit-hash>
 ```
 
 Cherry-picking. Select a commit from another branch and move to the active branch. Should do a git reset --hard HEAD~1 on the other branch to clean it from unnecessary changes.
 
 ```sh
-git cherry-pick commit-hash
+git cherry-pick <commit-hash>
 ```
 
 </details>
@@ -661,7 +661,7 @@ git cherry-pick commit-hash
 Merge the selected branch to the current branch, rewriting current branch's commit history. Only use for local development when cleaning up short-term branches.
 
 ```sh
-git rebase branch-name
+git rebase <branch-name>
 ```
 
 Undo the rebase that e. g. caused a merge conflict.
@@ -704,10 +704,10 @@ squash
 
 <details><summary>Creating a commit-graph.</summary>
 
-This creates a commit-graph in your working repository.
+This creates a commit-graph in your working repository. The commit-graph acts as a specialized query index. Note: running manually (not via `git maintenance run`) will only create the commit-graph for the current state of the repository and must be updated manually. The `--changed-paths` option adds Bloom filters, so that `git log` and `git blame` skips treesame commits without parsing any trees.
 
 ```sh
-git commit-graph write --reachable
+git commit-graph write --reachable --changed-paths
 ```
 
 </details>
@@ -755,7 +755,7 @@ git branch -a
 4. Checkout all the branches that you want to copy from ORI to NEW using:
 
 ```sh
-git checkout branch-name
+git checkout <branch-name>
 ```
 
 5. Now fetch all the tags from ORI using:
@@ -823,14 +823,14 @@ git commit --amend --no-edit
 1. Create a new branch from the current state of master.
 
 ```sh
-git branch some-new-branch-name
+git branch <some-new-branch-name>
 ```
 
 2. Remove the last commit from the master branch.
 
 ```sh
 git reset HEAD~ --hard
-git checkout some-new-branch-name
+git checkout <some-new-branch-name>
 ```
 
 3. Your commit lives in this branch now. <strong>Note: this doesn't work if you've already pushed the commit to a public/shared branch.</strong>
@@ -842,7 +842,7 @@ git checkout some-new-branch-name
 1. Change to the correct branch.
 
 ```sh
-git checkout name-of-the-correct-branch
+git checkout <name-of-the-correct-branch>
 ```
 
 2. Grab the last commit to main.
