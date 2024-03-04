@@ -1,11 +1,11 @@
 # GIT CHEATSHEET
 
 1. GIT MANEGEMENT (ssh, multiple accounts, git config, rev-parse, cat-file)
-2. GIT BASICS (clone, init, add, commit, stash)
+2. GIT BASICS (clone, init, add, commit, rm, stash)
 3. GIT HISTORY (log, shortlog, blame, reflog, tag)
 4. GIT BRANCHES (branch, checkout, diff, merge)
-5. GIT REMOTE REPOSITORIES (remote, push, pull, fetch)
-6. GIT UNDO CHANGES (reset, restore, revert, cherry-pick, rebase)
+5. GIT REMOTE REPOSITORIES (remote, push, pull, fetch, ls-remote)
+6. GIT UNDO CHANGES (reset, restore, revert, cherry-pick, clean, rebase, bisect)
 7. GIT OPTIMIZATION (submodules, subtrees, commit-graph)
 8. GIT IN PRACTICE (examples from Oh Shit Git, Atlassian, etc.)
 
@@ -203,13 +203,13 @@ git status
 Add specific files to the stating area.
 
 ```sh
-git add filename
+git add <filename>
 ```
 
 Patch level of a file. Select which changes should be staged from the specific file.
 
 ```sh
-git add -p filename
+git add -p <filename>
 ```
 
 Add every changed files to the stating area.
@@ -239,7 +239,13 @@ git commit --amend -m "message"
 The new commit is a fix for the specified earlier commit and is automatically placed in the old commit's position (similar to squash).
 
 ```sh
-git commit --fixup commit-hash
+git commit --fixup <commit-hash>
+```
+
+Remove files from the working tree and from the index.
+
+```sh
+git rm <file-name>
 ```
 
 </details>
@@ -468,6 +474,12 @@ With reflog, even deleted branches' hash number can be seen. This way, the delet
 git branch develop <branch-hash>
 ```
 
+Set the current branch upstream.
+
+```sh
+git branch --set-upstream-to <remote-branch>
+```
+
 Change between branches in the current repository.
 
 ```sh
@@ -596,6 +608,12 @@ It is the best utility for cleaning outdated branches. It will connect to a shar
 git fetch --prune
 ```
 
+List references available in a remote repository along with the associated commit IDs.
+
+```sh
+git ls-remote
+```
+
 </details>
 
 ## 6. GIT UNDO CHANGES
@@ -654,6 +672,18 @@ Cherry-picking. Select a commit from another branch and move to the active branc
 git cherry-pick <commit-hash>
 ```
 
+Before deleting files, a dry run should be run with the `-n` flag, because 1, `git clean` is undoable and 2, the dry run will only output what the command would do, but won't actually run it.
+
+```sh
+git clean -n
+```
+
+Delete untracked files in the working repository. `git clean` will only run with the `-f` or `--force` option, this is a built-in safety mechanism.
+
+```sh
+git clean -f
+```
+
 </details>
 
 <details><summary>Rebase branches.</summary>
@@ -700,6 +730,34 @@ squash
 
 </details>
 
+<details><summary>Find bugs with bisecting.</summary>
+
+Start bisecting.
+
+```sh
+git bisect start
+```
+
+Declare the current commit bad. Git assumes you mean HEAD by default.
+
+```sh
+git bisect bad
+```
+
+If you reach a commit where the bug is not present, you can declare it good.
+
+```sh
+git bisect good
+```
+
+The bisect tool repeats until resetting.
+
+```sh
+git bisect reset
+```
+
+</details>
+
 ## 7. GIT OPTIMIZATION
 
 <details><summary>Creating a commit-graph.</summary>
@@ -717,7 +775,7 @@ git commit-graph write --reachable --changed-paths
 Download external library to project in a clean way. The project only has the submodule configurations, not the actual submodules.
 
 ```sh
-git submodule add "https-link"
+git submodule add <https-link>
 ```
 
 Download the submodule data according to the submodule configuration.
@@ -857,5 +915,29 @@ git cherry-pick main
 git checkout main
 git reset HEAD~ --hard
 ```
+
+</details>
+
+<details><summary>How to split a commit into multiple ones.</summary>
+
+1. Find the commit hash with `git reflog`. Then start and interactive rebase session.
+
+```sh
+git rebase -i <commit-hash>
+```
+
+2. In the rebase edit screen, find the line with the commit that you want to split and replace `pick` with `edit`. Then reset the state to the previous commit
+
+```sh
+git reset HEAD~
+```
+
+3. Now, you can create different commits. Finally, finish the rebase session.
+
+```sh
+git rebase --continue
+```
+
+4. If anything goes sideways, you can easily start over with the `git rebase --abort`.
 
 </details>
