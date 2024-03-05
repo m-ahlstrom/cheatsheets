@@ -1,4 +1,4 @@
-# Resources
+# Useful Resources
 
 Cheatsheets for various tools I use and resources I found (and still find) useful. I make these publicly available as a reference.
 
