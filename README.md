@@ -11,3 +11,4 @@ Cheatsheets for various tools I use and resources I found (and still find) usefu
 2. Databases
 
 - [MongoDB Cheatsheet](https://github.com/m-ahlstrom/useful-resources/blob/main/Databases/mongodb_cheatsheet.md)
+- [SQL Cheatsheet](https://github.com/m-ahlstrom/useful-resources/blob/main/Databases/sql_cheatsheet.md)
