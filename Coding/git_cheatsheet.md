@@ -215,7 +215,7 @@ git add -p <filename>
 Add every changed files to the stating area.
 
 ```sh
-git add .
+git add -A
 ```
 
 Commit changes to git with a message about the changes. Messages should be clear and descriptive. Only combine changes from the same topic in a single commit. If you are not sure, you should be able to read a commit message like this: <strong>if this commit is applied, it will "your message".</strong>
